@@ -35,9 +35,9 @@ pipeline {
     post { 
         always { 
       
-            echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} ${env.BUILD_URL}"
             script {
-                response = httpRequest authentication: 'charekId', url: "http://saxon1.fyre.ibm.com:8080/job/simple-java-maven-app/12/wfapi"
+                response = httpRequest authentication: 'charekId', url: "${env.BUILD_URL}/wfapi"
                 println("Post stage view rest api Status: "+response.status)
                 // println("Content: "+response.content)
                 response2 = httpRequest consoleLogResponseBody: true, contentType: 'APPLICATION_JSON', httpMode: 'POST', requestBody: response.content, url: "http://leach1.fyre.ibm.com:8080/jenkins", validResponseCodes: '200'
