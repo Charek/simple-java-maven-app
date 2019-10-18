@@ -34,10 +34,12 @@ pipeline {
     }
     post { 
         always { 
-            echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-            def response = httpRequest authentication: 'charekId', url: "http://saxon1.fyre.ibm.com:8080/job/simple-java-maven-app/12/wfapi"
-            println("Status: "+response.status)
-            println("Content: "+response.content)
+            steps {
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                def response = httpRequest authentication: 'charekId', url: "http://saxon1.fyre.ibm.com:8080/job/simple-java-maven-app/12/wfapi"
+                println("Status: "+response.status)
+                println("Content: "+response.content)
+            }
         }
     }
 }
